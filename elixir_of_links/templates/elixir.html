@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{page_title}}</title>
+</head>
+<body>
+    Welcome, to the Future
+
+    <form class="pt-3" action="{% url 'add_elixir' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <b>{{form.url.label_tag}}</b>
+            {{form.url}}
+        </div>
+        {% comment %} <div class="form-group">
+            <b>{{form.password.label_tag}}</b>
+            {{form.password}}
+        </div> {% endcomment %}
+        <div class="mt-3">
+            <button type="submit" class="btn btn-block btn-dark btn-lg font-weight-medium auth-form-btn">Shorten Url</button>
+        </div>
+    </form>
+</body>
+</html>
