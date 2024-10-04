@@ -20,28 +20,23 @@ def hasherGenerator():
     '''
     word hasherGenerator. Can be used for hashing password, create a session pass key.
     '''
-
-    message=randomCharacter(10)
     key = Fernet.generate_key()
+    message=randomCharacter(10)
     # Instance the Fernet class with the key
     fernet = Fernet(key)
-    encMessage = fernet.encrypt(message.encode())
-    return {'key':key, 'message':message, 'encoded':encMessage}
+    token = fernet.encrypt(message.encode())
+    return {'key':key, 'encoded':token}
 
 
 
 def decrypter(key, encoded):
     '''
-    data: is passed in as a dictionary. {'key':key, 'message':message, 'encoded':encMessage}
+    data: is passed in as a dictionary. {'key':key, 'encoded':token}
     '''
     fernet = Fernet(key)
-    result = fernet.decrypt(encoded).decode()
-    return result
+    token = fernet.decrypt(encoded).decode()
+    return token
 
-# dt =  hasherGenerator()
-# print(dt)
-# d = decrypter(key=dt.get('key'), encoded=dt.get('encoded'))
-# print(d)
 
 
 def numbershuffler(limit:int=4):

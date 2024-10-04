@@ -52,7 +52,6 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     # Personal Fields
     first_name = models.CharField(blank=True, max_length=50, verbose_name="Firstname", default="")
     last_name = models.CharField(blank=True, max_length=50, verbose_name="Lastname", default="")
-    full_name = f"{first_name} {last_name}"
 
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -96,11 +95,11 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     def custom_list_display():
         return CUSTOM_USER_DISPLAY
     
-    def set_token(self, token):
+    def _set_token(self, token):
         self.token = token
         self.save()
         
-    def clear_token(self):
+    def _clear_token(self):
         self.token = ''
         self.save()
         

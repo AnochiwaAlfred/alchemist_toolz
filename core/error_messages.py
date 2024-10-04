@@ -7,3 +7,4 @@ class ErrorMessages:
     FORM_ON_ERROR = "form has error".upper()
     PASSWORD_CHANGED_MESSAGE = "Password Updated Successfully"
     PASSWORD_NOT_MATCH_MESSAGE = "Passwords do not match"
+    INVALID_PASSWORD = "Invalid password"
