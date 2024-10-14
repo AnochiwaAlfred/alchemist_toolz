@@ -1,0 +1,48 @@
+{% extends 'toolz/base.html' %}
+{% load get_model_objects %}
+
+
+          {% block content %}
+          
+            <div class="page-header">
+              <h3 class="page-title"> {{page_title}}  </h3>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'frontend:dashboard' %}">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Youtube Downloader</li>
+                </ol>
+              </nav>
+            </div>
+            
+            
+            {% for message in messages %}
+            <div class="mt-2 alert {{message.tags}} alert-dismissible fade show" role="alert">
+                {{message}}
+                {% comment %} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> {% endcomment %}
+            </div>
+            {% endfor %}
+            <div class="row">
+
+
+              <div class="card-body">
+                <h4 class="card-title">Youtube Link</h4>
+                <form class="forms-sample" method="POST" action="{% url 'frontend:yt_downloader' %}">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <input type="text" class="form-control" id="youtube_link" name="youtube_link" placeholder="Enter youtube link" />
+                  </div>
+
+                  
+                  <input type="hidden" id="userID" value="{{user.id}}">
+
+                  <button type="submit" class="btn btn-primary mr-2" id="youtubeButton">Submit</button>
+                </form>
+              </div>
+              {{yt}}
+              
+          </div>
+
+          {% comment %} {% include 'toolz/scripts/translate_script.html' %} {% endcomment %}
+
+          {% endblock content %}
+          

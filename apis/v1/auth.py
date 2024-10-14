@@ -70,15 +70,16 @@ def login_user(request, email: str, password: str):
             access_token = decrypter(**hh)
             user2 = AuthUser.objects.filter(id=user.id)[0]
             user2._set_token(access_token)
-            # image_url = request.build_absolute_uri(user2.image.url) if user2.image else ""
+            image_url = request.build_absolute_uri(user2.image.url) if user2.image else "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png"
             token=user2.token
             user2.login()
+            print(token)
             return {
                 "access_token": token, 
                 "user_id":user.id, 
                 "username":user2.username, 
                 "email":user2.email, 
-                # "image":image_url, 
+                "image":image_url, 
                 "message":'User Logged in Successfully'
             }
         else:
@@ -97,3 +98,23 @@ def logout(request, token):
     return {
         "message": "User Logged Out; You can sign in again using your username and password."
     }
+
+
+
+@router.post('user/{user_id}/update_user_image', response=Union[AuthUserRetrievalSchema, str])
+def update_user_image(request, user_id:str, image:UploadedFile=FileEx(None)):
+    user = get_object_or_404(AuthUser, id=user_id)
+    if user:
+        if image!=None:
+            user.image=image
+            user.save()
+    return user
+
+@router.get('user/{user_id}/get_user_image', response=str)
+def get_user_image(request, user_id:str):
+    user = get_object_or_404(AuthUser, id=user_id)
+    if user:
+        image_url = request.build_absolute_uri(user.image.url) if user.image else "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png"
+        return image_url
+    else:
+        return "User not found"

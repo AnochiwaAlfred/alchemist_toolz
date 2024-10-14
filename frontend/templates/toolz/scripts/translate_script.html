@@ -1,0 +1,62 @@
+<script>
+  //const host = window.location.host;
+  const host = "http://127.0.0.1:8000"
+  //const host = "https://a7c0-197-210-226-171.ngrok-free.app"
+
+    document.getElementById("translateButton")
+    .addEventListener("click", async(event)=>{
+        event.preventDefault();
+        const originalText = document.getElementById("originalText").value
+        const translatedText = document.getElementById("translatedText")
+        const sourceLanguage = document.getElementById("sourceLanguage").value
+        const targetLanguage = document.getElementById("targetLanguage").value
+        const user_id = document.getElementById("userID").value
+        const url = `${host}/api/v1/translate/create_translation?user_id=${user_id}`
+        
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'accept': '*'
+            },
+            body: new URLSearchParams({
+                    original_text:originalText,
+                    source_language:sourceLanguage,
+                    target_language:targetLanguage
+            }).toString(),
+        })
+
+        if (response.ok){
+            const message = await response.json();
+            if (message.translated_text=="We cannot connect to the server. Check your network connection."){
+              translatedText.style.color="red"
+            }else{translatedText.style.color="default"};
+            translatedText.innerHTML = message.translated_text;
+        } else {
+            throw new Error(`HTTP Error! Status: ${response.status}`)
+        }
+
+        
+    });
+</script>
+
+
+        <!-- {/* fetch(url, {
+            method: 'POST',
+            headers: {
+              'accept': 'application/json',
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `original_text={originalText}&source_language={sourceLanguage}&target_language={targetLanguage}`
+          })
+            .then(response => response.json())
+            .then(data => {
+              // Handle the response data here
+              console.log(data);
+              alert(data)
+            })
+            .catch(error => {
+              // Handle errors here
+              console.error(error);  
+          
+            }); */} -->

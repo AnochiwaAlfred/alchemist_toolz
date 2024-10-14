@@ -45,6 +45,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'alchemist_toolz.urls'
@@ -60,7 +61,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'frontend.context_processors.frontendContext',
+                'frontend.context_processors.frontendContext',
             ],
         },
     },
@@ -128,3 +129,4 @@ CORS_ALLOWED_ORIGIN_REGEXES=CORS_ALLOWED_ORIGIN_REGEXES
 CSRF_TRUSTED_ORIGINS=CSRF_TRUSTED_ORIGINS
 CORS_ALLOW_METHODS=CORS_ALLOW_METHODS
 CORS_ALLOW_HEADERS=CORS_ALLOW_HEADERS
+CORS_ALLOWED_ORIGINS=CORS_ALLOWED_ORIGINS

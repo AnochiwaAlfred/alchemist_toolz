@@ -1,0 +1,106 @@
+{% load static %}
+
+{% static "assets/css" as css %}
+{% static "assets/fonts" as fonts %}
+{% static "assets/images" as images %}
+{% static "assets/js" as js %}
+{% static "assets/vendors" as vendors %}
+{% static "assets" as root %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{page_title}}</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{{vendors}}/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="{{vendors}}/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{{css}}/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{{images}}/favicon.png" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="row w-100 m-0">
+          <div class="content-wrapper full-page-wrapper d-flex align-items-center auth login-bg">
+            <div class="card col-lg-4 mx-auto">
+              {% for message in messages %}
+              <div class="mt-2 alert {{message.tags}} alert-dismissible fade show" role="alert">
+                  {{message}}
+                  {% comment %} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> {% endcomment %}
+              </div>
+              {% endfor %}
+              <div class="card-body px-5 py-5">
+                <h3 class="card-title text-left mb-3">Register</h3>
+                <form action="{% url 'frontend:register' %}" method="POST">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <b>{{form.username.label_tag}}</b>
+                    {{form.username}}
+                  </div>
+                  <div class="form-group">
+                    <b>{{form.email.label_tag}}</b>
+                    {{form.email}}
+                  </div>
+                  <div class="form-group">
+                    <b>{{form.first_name.label_tag}}</b>
+                    {{form.first_name}}
+                  </div>
+                  <div class="form-group">
+                    <b>{{form.last_name.label_tag}}</b>
+                    {{form.last_name}}
+                  </div>
+                  
+                  <div class="form-group d-flex align-items-center justify-content-between">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input"> Remember me </label>
+                    </div>
+                    <a href="#" class="forgot-pass">Forgot password</a>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-block enter-btn">Register</button>
+                  </div>
+                  {% comment %} <div class="d-flex">
+                    <button class="btn btn-facebook col mr-2">
+                      <i class="mdi mdi-facebook"></i> Facebook </button>
+                    <button class="btn btn-google col">
+                      <i class="mdi mdi-google-plus"></i> Google plus </button>
+                  </div> {% endcomment %}
+                  <p class="sign-up text-center">Already have an Account?<a href="{% url 'frontend:login' %}"> Login</a></p>
+                  <p class="terms">By creating an account you are accepting our<a href="#"> Terms & Conditions</a></p>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+        </div>
+        <!-- row ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{{vendors}}/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{{js}}/off-canvas.js"></script>
+    <script src="{{js}}/hoverable-collapse.js"></script>
+    <script src="{{js}}/misc.js"></script>
+    <script src="{{js}}/settings.js"></script>
+    <script src="{{js}}/todolist.js"></script>
+    <!-- endinject -->
+  </body>
+</html>

@@ -26,5 +26,6 @@ class AuthUserAdmin(UserAdmin):
     fieldsets = [
         (None, {"fields": ["username", "email", "password"]}),
         ("Personal Info", {"fields": ["first_name", "last_name"]}),
+        ("Image", {"fields": ["image"]}),
         ("Permissions", {"fields": ["is_staff", "is_superuser"]}),
     ]

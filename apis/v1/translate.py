@@ -6,14 +6,17 @@ from typing import List, Union, Any
 from django.contrib.auth import logout as contrib_logout
 from django.contrib.auth import authenticate, login
 import uuid
+from django.contrib import messages as django_message
 # from googletrans import Translator
+
+
+
 from translate import Translator
-
-
 from apis.schema.translate import *
 from plugins.hasher import hasherGenerator, decrypter
 from transmutation_engine.models import *
 from users.models.users import AuthUser
+from core.error_messages import ErrorMessages
 
 
 router = Router(tags=["Translate Endpoints"])
@@ -29,13 +32,24 @@ def create_translation(request, user_id:int, data:TranslateRegistrationModelSche
     # translated_text = translator.translate(original_text, src='en', dest='fr')
     # print(translated_text.text)
     if user:
-        translator = Translator(from_lang=source_language, to_lang=target_language)
-        translated_text = translator.translate(original_text)
-        translation = Translate(**data.dict())
-        translation.translated_text = translated_text
-        translation.user = user
-        translation.save()
-        return translation
+        try:
+            translator = Translator(from_lang=source_language, to_lang=target_language)
+            translated_text = translator.translate(original_text)
+            translation = Translate(**data.dict())
+            translation.translated_text = translated_text
+            translation.user = user
+            translation.save()
+            return translation
+        except:
+            res = TranslateRetrievalSchema(
+                id=uuid.uuid4(),
+                original_text="",
+                translated_text=f"{ErrorMessages.NO_INTERNET}",
+                source_language="",  
+                target_language="",
+                user=user
+            )
+            return res
     else:
         return user
 

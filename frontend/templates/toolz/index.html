@@ -1,0 +1,24 @@
+{% extends 'toolz/base.html' %}
+
+          {% block content %}
+          
+            <div class="page-header">
+              <h3 class="page-title"> {{page_title}} </h3>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  {% comment %} <li class="breadcrumb-item"><a href="#">Forms</a></li> {% endcomment %}
+                  <li class="breadcrumb-item active" aria-current="page">Home</li>
+                </ol>
+              </nav>
+            </div>
+            
+            
+            <div class="row">
+
+              {% include 'toolz/partials/translation_history.html' %}
+
+              
+            </div>
+
+          {% endblock content %}
+          

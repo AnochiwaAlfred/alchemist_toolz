@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin, Group, Permission
 from plugins.code_generator import generateUniqueId
+from plugins.generate_filename import generate_filename
 
 # Create your models here.
 
@@ -52,6 +53,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     # Personal Fields
     first_name = models.CharField(blank=True, max_length=50, verbose_name="Firstname", default="")
     last_name = models.CharField(blank=True, max_length=50, verbose_name="Lastname", default="")
+    image = models.ImageField(null=True, blank=True, upload_to=generate_filename)
 
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

@@ -1,0 +1,42 @@
+
+
+<div class="col-md-4 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Translation History </h4>
+        <canvas id="transaction-history" class="transaction-chart"></canvas>
+        {% if translations|length > 0 %}
+          {% for translation in translations|slice:"2" %}
+            <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+              <div class="text-md-center text-xl-left">
+                <h6 class="mb-1">{{translation.original_text}}</h6>
+                <p class="text-muted mb-0">{{translation.timestamp}}</p>
+              </div>
+              <div class="align-self-center flex-grow text-right text-md-center text-xl-right py-md-2 py-xl-0">
+                <h6 class="font-weight-bold mb-0 ">
+                  <div class="d-flex justify-content-end">
+                    {{translation.source_language|upper}}
+                    <i class="d-flex align-items-center mdi mdi-arrow-right text-primary"></i>
+                    {{translation.target_language|upper}}
+                  </div>
+                </h6>
+              </div>
+            </div>
+            {% endfor %}
+            <div class="text-center mt-2">
+              <a href="#" class="">View all translations</a>
+            </div>
+        
+        {% else %}
+        <div class="bg-gray-dark d-flex d-md-block d-xl-flex flex-row py-3 px-4 px-md-3 px-xl-4 rounded mt-3">
+          <div class="text-md-center text-xl-left">
+            <h6 class="mb-1">Sorry</h6>
+            <p class="text-muted mb-0">You've not made any translations</p>
+          </div>
+          
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+</div>
